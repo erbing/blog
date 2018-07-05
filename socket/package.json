@@ -44,6 +44,7 @@
     "redux": "^4.0.0",
     "socket.io": "^2.0.4",
     "style-loader": "^0.21.0",
+    "supervisor": "^0.12.0",
     "url-loader": "^1.0.1",
     "uws": "^10.148.1",
     "webpack": "^4.15.0",

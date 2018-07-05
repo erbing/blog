@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// import Socket from 'socket.io'
-var io = require('socket.io')
+import io from 'socket.io-client';
+
 // var fs = require('fs')
 
 var socket = io('http://127.0.0.1:3000/')
 
 socket.on('hello', function(data) {
-    alert(data)
+    console.log(data)
 })
 
 import './index.less'

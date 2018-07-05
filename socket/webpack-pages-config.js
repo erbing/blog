@@ -5,6 +5,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 let webpackConfig = {
+    target: 'web',
     entry: {
         app: './pages/app.js'
     },
@@ -62,7 +63,7 @@ let webpackConfig = {
         port: '8090'
     },
     mode: 'development',
-    node: { fs: 'empty' }
+    // node: { fs: 'empty' }
 }
 
 
