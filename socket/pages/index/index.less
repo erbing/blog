@@ -1,0 +1,180 @@
+.main{
+    width: 80%;
+    height: 700px;
+    background: rgb(240, 236, 236);
+    margin: 0 auto;
+    margin-top: 100px;
+    border-radius: 5px;
+    .header{
+        width: 100%;
+        height: 70px;
+        background: #cfcccc;
+        border-radius: 10px 10px 0 0;
+        .header-left{
+            width: 25%;
+            height: 70px;
+            float: left;
+            .dots{
+                margin-right: 20px;
+                margin-left: 15px;
+                ul{
+                    width: auto;
+                    height: auto;
+                    .li{
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 50%;
+                        float: left;
+                        margin-right: 5px;
+                    }
+                    .li1{background: #ED6B5F}
+                    .li2{background: #F6C150}
+                    .li3{background: #64C957}
+                }
+
+            }
+            .search{
+                width: 140px;
+                height: 25px;
+                background: #fcfcfc;
+                border-radius: 12px;
+            }
+        }
+        .header-right{
+            width: 50px;
+            height: 70px;
+            float: right;
+            margin-right: 15px;
+            .header-img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .content{
+        width: 100%;
+        .slide{
+            width: 25%;
+            height: 630px;
+            float: left;
+            border-right: 1px solid #dfdbdb;
+            ul{
+                height: 100%;
+                width: 100%;
+                li{
+                    width: 100%;
+                    height: 70px;
+                    padding: 20px 20px;
+                    box-sizing: border-box;
+                }
+                .lis-active {
+                    background: #D6D6D6;
+                }
+                .lis{
+                    .avator{
+                        margin-right: 5px;
+                        .avator-img{
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .lis-right{
+                        width: 200px;
+                        .title{
+                            font-size: 14px;
+                            width: 100%;
+                            margin-bottom: 2px;
+                        }
+                        .desc{
+                            width: 100%;
+                            color: #a8a8a8;
+                            font-size: 10px;
+                        }   
+                    }
+                }
+            }
+        }
+        .chatting{
+            width: 55%;
+            padding-top: 2px;
+            height: 626px;
+            background: #fff;
+            float: left;
+            .chatting-content{
+                width: 100%;
+                height: 460px;
+            }
+            .chattingi-input{
+                width: 100%;
+                height: 258px;
+                border-top: 2px solid #F0ECEC;
+                box-sizing: border-box;
+                .chattingi-input-all{
+                    width: 99%;
+                    height: 160px;
+                    border: none;
+                    font-size: 16px;
+                    color: #999;
+                    padding: 5px;
+                    box-sizing: border-box;
+                }
+                textarea:focus{
+                    outline: none;
+                    border: 1px solid #ccc;
+                }
+            }
+        }
+        .numbers{
+            width:19%;
+            float: right;
+            height: 626px;
+            .gonggao{
+                width: 100%;
+                height: 200px;
+                border-bottom: 1px solid #ccc;
+                .title{
+                    font-size: 12px;
+                    color: #999;
+                    margin-top: 10px;
+                    margin-bottom: 15px;
+                }
+                .content{
+                    color: #666;
+                    font-size: 12px;
+                }
+            }
+            .allNumber{
+                width: 100%;
+                .curNumbers{
+                    width: 100%;
+                    margin: 10px 0;
+                    font-size: 14px;
+                    color: #999;
+                }
+                ul{
+                    li{
+                        width: 100%;
+                    }
+                    .lis{
+                        height: 30px;
+                        padding-left: 5px;
+                        box-sizing: border-box;
+                        .avator-img{
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            margin-right: 5px;
+                        }
+                        .avator-nick{
+                            font-size: 12px;
+                            color: #999;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
