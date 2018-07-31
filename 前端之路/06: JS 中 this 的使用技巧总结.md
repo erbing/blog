@@ -330,3 +330,5 @@ appController.avg.apply(gameController);
 
 console.log(gameController.avgScore);
 ```
+
+[Github地址，欢迎 Star](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%08%E4%B9%8B%E8%B7%AF/06:%20JS%20%E4%B8%AD%20this%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93.md)
