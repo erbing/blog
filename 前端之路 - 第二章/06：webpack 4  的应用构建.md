@@ -194,7 +194,137 @@ module.exports = {
 
 ## 三、如何使用
 
+在上面的文章中，我们已经大致介绍了 webpack 的概念，下面就是需要我们来配置一个 可以实际使用的项目。
+
+[webpack基础配置项目地址](https://github.com/erbing/BaseWebpackV4)
 
 
-## 四、避免问题
+### 3-1  关于 resolve 解析的相关的疑问
+
+#### 3-1-1 resolve.alias
+
+> 创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：
+
+```javascript
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+	  'vue$': 'vue/dist/vue.common.js',
+      'src': path.resolve(__dirname, './src/src/'),
+      'assets': path.resolve(__dirname, './src/assets/'),
+      'components': path.resolve(__dirname, '../src/components')
+    }
+  }
+};
+```
+
+有了上面的配置后，在项目文件中如果需要引用 components 文件夹下面的某个组件的时候 就可以 直接 如下的引用方式：
+
+```javascript
+import Alert from 'component/alert'
+```
+
+这样就可以 忽略因为项目文件过深而引起的 引用组件路径出错的问题，从而加快效率。
+
+
+#### 3-1-2 resolve.extensions
+
+> 自动解析确定的扩展。默认值为：
+
+```javascript
+module.exports = {
+  //...
+  resolve: {
+    extensions: ['.wasm', '.mjs', '.js', '.json']
+  }
+};
+```
+
+这样的话，就会帮你把未加上 后缀名的文件自动加上配置后缀，从而加快开发效率。
+
+当然也是按照你所给出的文件路径去匹配的后缀，而不是随意加上后缀名。
+
+> 关于 resolve 解析 的内容还有很多，大家可以参考 webpack 官方文档去寻找自己需要的内容，让自己开发项目的速度变得更加快捷方便。
+
+### 4-1  优化(optimization)
+
+> 在 4.0 以后的 webpack 版本，他们专门把 optimization 提取出来作为一个大的模块来进行了优化，因为这个功能实在是太能有效的提升项目的加载速度了。为什么会这么说呢？下面我们就来了解了解～
+
+我们先来看一个简单的配置：
+
+```javascript
+module.exports = {
+  //...
+  optimization: {
+    minimize: false
+  }
+};
+```
+#### 4-1-1 optimization.minimize
+
+> 这个属性是一个 布尔类型，是告诉 webpack 我们是否在当前环境下去压缩混淆我们的 JS 代码。
+
+当然 需要配合这个属性来使用的还有一个 `插件` 主要注意:   `UglifyjsWebpackPlugin`
+
+#### 4-1-2 optimization.splitChunks
+
+> 这个属性是在 webpack 4.0 + 才提供的。用来 分离切割 体积较大的 JS 文件。
+
+然后 webpack 会自动将 通用的 chunk 进行分割，从而最大限度的做到 `复用`  ，从而减少 main chunk 的体积。
+
+### 5-1  插件(plugins)
+
+> `plugins` 选项用于以各种方式自定义 webpack 构建过程。webpack 附带了各种内置插件，可以通过 `webpack.[plugin-name]` 访问这些插件。
+
+
+webpack 插件列表。例如，当多个 bundle 共享一些相同的依赖，CommonsChunkPlugin 有助于提取这些依赖到共享的 bundle 中，来避免重复打包。这里还是举例说明：
+
+```javascript
+module.exports = {
+  //...
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor-[hash].min.js',
+    })
+  ]
+};
+```
+
+> 这里 CommonsChunkPlugin 就会告诉 webpack 让它把 多个 bundle 共享一些相同的依赖，抽离出来，形成一个单独的 bundle 从而避免重复打包而带来的性能损耗。
+
+
+### 6-1  开发中 server (devServer)
+
+这里的重要部分就是 webpack-dev-server 这个插件了。
+
+> webpack-dev-server 创建当前本地开发的node环境，从而才能有上面种种 webpack 对于文件的操作权限，才能为所欲为，这个是基本。我们还是来一个最简单的 demo。
+
+```javascript
+module.exports = {
+  //...
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,   
+    port: 9000
+  }
+};
+```
+
+这里面也有非常多的 属性配置，基本满足了我们开发中遇到的大多数的问题。
+
+
+## 四、总结
+
+> 基本上完成了上面文章中介绍到的内容，我们就已经可以完成基本的 webpack 配置的功能了， 注意： 这里说到的是 基本的 webpack 的配置工作，那么在我们的实际的项目开发中，我们会遇到的问题和需要我们通过webpack 来解决的问题非常之多。
+
+---
+
+> 因为我们需要结合一系列的框架来完成我们的前端开发的工作，React、Vue、Angular、JQ，Backbone 等等等。 这系列的框架 风格各异，但是又万变不离其宗，核心需要注意的地方就那么多，下一篇文章就会 讲到一个 现代 前端开发 需要注意的一个重要 插件。 `Babel`  。
+
+---
+
+> 关于 webpack 入门的文章就介绍到这里了，欢迎一起来论道～
+  
 
