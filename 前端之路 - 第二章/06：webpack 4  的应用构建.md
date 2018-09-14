@@ -327,4 +327,6 @@ module.exports = {
 
 > 关于 webpack 入门的文章就介绍到这里了，欢迎一起来论道～
   
-
+> GitHub 地址：（欢迎 star 、欢迎推荐    : )
+> 
+[前端 webpack 4.0 的应用构建](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20-%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/06%EF%BC%9Awebpack%204%20%20%E7%9A%84%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA.md)
