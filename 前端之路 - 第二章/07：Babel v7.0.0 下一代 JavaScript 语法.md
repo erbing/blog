@@ -189,6 +189,30 @@ babel.config.js 的官方文档在这里 [babel](https://babel.docschina.org/doc
 }
 ```
 
+#### 2-1-2-5： 插件中每个访问者都有排序问题
+
+> 这意味着如果两次转译都访问相同的”程序”节点，则转译将按照 plugin 或 preset 的规则进行排序然后执行。
+
+- Plugin 会运行在 Preset 之前。
+- Plugin 会从第一个开始顺序执行。ordering is first to last.
+- Preset 的顺序则刚好相反(从最后一个逆序执行)。
+
+#### 2-1-2-6: 总结：
+
+> 上面项目的跑起来的时候依然还是还有 bug，下面就需要我们来完善这一个问题，用上面学习到的内容
+
+```json
+{
+  "presets": ["env", "stage-1", "react"],
+  "plugins": [
+    ["transform-runtime", { "polyfill": false }],
+    "transform-decorators-legacy"
+  ]
+}
+```
+
+每一部分的 插件也好，预处理文件也好。都会影响着整个项目，很多时候均为 各个不同版本插件之间的兼容性问题，搞的非常头痛，所以，看准插件，仔细阅读其文档是不可或缺的。
+
 ### 2-2 、Vue && Babel
 
 ## 三、Babel 和 Prettiter 与 代码规范
