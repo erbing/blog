@@ -231,11 +231,11 @@ Babel 的使用，是我们对于 ES 的各种版本 的理解更好的帮助，
 
 ---
 
-> 关于 webpack 入门的文章就介绍到这里了，欢迎一起来论道～
+> 关于 Babel 下一代 JavaScript 语法编译器 的文章就介绍到这里了，欢迎一起来论道～
 
 > GitHub 地址：（欢迎 star 、欢迎推荐 : )
 >
-> [Babel 下一代 JavaScript 语法编译器]()
+> [Babel 下一代 JavaScript 语法编译器](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20-%20%E7%AC%AC%E4%BA%8C%E7%AB%A0/07%EF%BC%9ABabel%20v7.0.0%20%E4%B8%8B%E4%B8%80%E4%BB%A3%20JavaScript%20%E8%AF%AD%E6%B3%95.md)
 
 ## 四、Babel 和 Prettiter 与 代码规范
 
