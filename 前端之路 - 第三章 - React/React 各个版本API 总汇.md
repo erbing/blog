@@ -7,11 +7,11 @@
     那么要实现这个小功能之前，我们必须要对 React 的各种版本进行仔细的解读。
     最快捷的方式就是 直接 通过官方文档来获取最真实的信息。
 
-### 一、React V 16.0.0
+[TOC]
 
-`官方文档传送门：` [React V 16.0.0 官方文档](https://5a046bf5a6188f4b8fa4938a--reactjs.netlify.com/docs/hello-world.html)
+## 一、React 的基础
 
-#### 1、Components and Props
+### 1、Components and Props
 
 > 1-1、About `Components`
 
@@ -27,4 +27,184 @@
 
 > 1-2、Component's presentation (展现形式)
 
-#### 2、 State and Lifecycle
+    The simplest way to define a component is to write a JavaScript function:
+
+```javascript
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+    You can also use an ES6 class to define a component:
+
+```javascript
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
+> 上面的二种写法，目前开看是`等价的`.
+
+> 任何都 React 版本，关于 Lifecycle 我们都可以找到对应的几个状态，来进行不同的 api 的差异的对比。这样也是方便，我们进行记忆的。
+
+## 二、React V 16.0.0
+
+`官方文档传送门：` [React V 16.0.0 官方文档](https://5a046bf5a6188f4b8fa4938a--reactjs.netlify.com/docs/hello-world.html)
+
+### 1、 The Component Lifecycle ( v16.0.0 )
+
+#### 1-1 Mounting （绑定阶段）
+
+> `constructor()` > `componentWillMount()` > `render()` > `componentDidMount()`
+
+#### 1-2 Updating （数据更新阶段）
+
+> `componentWillReceiveProps()` > `shouldComponentUpdate()` > `componentWillUpdate()` > `render()` > `componentDidUpdate()`
+
+#### 1-3 Unmounting （解除绑定阶段）
+
+> `componentWillUnmount()`
+
+#### 1-4 Error Handling （错误处理阶段）
+
+> `componentDidCatch()`
+
+### 2、 Other APIs
+
+#### 2-1 setState() （数据变更）
+
+#### 2-2 forceUpdate() （强制数据变更）
+
+### 3、 Class Properties （类的属性）
+
+#### 3-1 defaultProps（默认的 props）
+
+#### 3-2 displayName（展示名称）
+
+### 4、Instance Properties （实例属性）
+
+#### 4-1 props（父组件传递进来的数据）
+
+#### 4-2 state（本地组件的数据）
+
+## 三、React V 16.3.2
+
+`官方文档传送门：` [React V 16.3.2 官方文档](https://5b05c94e0733d530fd1fafe0--reactjs.netlify.com/docs/hello-world.html)
+
+### 1、 The Component Lifecycle ( v16.0.0 )
+
+#### 1-1 Mounting （绑定阶段）
+
+> `constructor()` > `static getDerivedStateFromProps()` > `componentWillMount() / UNSAFE_componentWillMount()` > `render()` > `componentDidMount()`
+
+#### 1-2 Updating （数据更新阶段）
+
+> `componentWillReceiveProps() / UNSAFE_componentWillReceiveProps()` > `static getDerivedStateFromProps()` > `shouldComponentUpdate()` > `componentWillUpdate() / UNSAFE_componentWillMount()` > `render()` > `getSnapshotBeforeUpdate()` > `componentDidUpdate()`
+
+#### 1-3 Unmounting （解除绑定阶段）
+
+> `componentWillUnmount()`
+
+#### 1-4 Error Handling （错误处理阶段）
+
+> `componentDidCatch()`
+
+### 2、 Other APIs
+
+#### 2-1 setState() （数据变更）
+
+#### 2-2 forceUpdate() （强制数据变更）
+
+### 3、 Class Properties （类的属性）
+
+#### 3-1 defaultProps（默认的 props）
+
+#### 3-2 displayName（展示名称）
+
+### 4、Instance Properties （实例属性）
+
+#### 4-1 props（父组件传递进来的数据）
+
+#### 4-2 state（本地组件的数据）
+
+## 四、React V 16.5.2
+
+`官方文档传送门：` [React V 16.5.2 官方文档](https://5bcf5863c6aed64970d6de5b--reactjs.netlify.com/docs/getting-started.html)
+
+### 1、 The Component Lifecycle ( v16.0.0 )
+
+#### 1-1 Mounting （绑定阶段）
+
+> `constructor()` > `static getDerivedStateFromProps()` > `render()` > `componentDidMount()`
+
+#### 1-2 Updating （数据更新阶段）
+
+> `static getDerivedStateFromProps()` > `shouldComponentUpdate()` > `render()` > `getSnapshotBeforeUpdate()` > `componentDidUpdate()`
+
+#### 1-3 Unmounting （解除绑定阶段）
+
+> `componentWillUnmount()`
+
+#### 1-4 Error Handling （错误处理阶段）
+
+> `componentDidCatch()`
+
+### 2、 Other APIs
+
+#### 2-1 setState() （数据变更）
+
+#### 2-2 forceUpdate() （强制数据变更）
+
+### 3、 Class Properties （类的属性）
+
+#### 3-1 defaultProps（默认的 props）
+
+#### 3-2 displayName（展示名称）
+
+### 4、Instance Properties （实例属性）
+
+#### 4-1 props（父组件传递进来的数据）
+
+#### 4-2 state（本地组件的数据）
+
+## 五、React V 16.7.0
+
+`官方文档传送门：` [React V 16.7.0 官方文档](https://reactjs.org/docs/getting-started.html)
+
+### 1、 The Component Lifecycle ( v16.0.0 )
+
+#### 1-1 Mounting （绑定阶段）
+
+> `constructor()` > `static getDerivedStateFromProps()` > `render()` > `componentDidMount()`
+
+#### 1-2 Updating （数据更新阶段）
+
+> `static getDerivedStateFromProps()` > `shouldComponentUpdate()` > `render()` > `getSnapshotBeforeUpdate()` > `componentDidUpdate()`
+
+#### 1-3 Unmounting （解除绑定阶段）
+
+> `componentWillUnmount()`
+
+#### 1-4 Error Handling （错误处理阶段）
+
+> `componentDidCatch()` > `static getDerivedStateFromError()`
+
+### 2、 Other APIs
+
+#### 2-1 setState() （数据变更）
+
+#### 2-2 forceUpdate() （强制数据变更）
+
+### 3、 Class Properties （类的属性）
+
+#### 3-1 defaultProps（默认的 props）
+
+#### 3-2 displayName（展示名称）
+
+### 4、Instance Properties （实例属性）
+
+#### 4-1 props（父组件传递进来的数据）
+
+#### 4-2 state（本地组件的数据）
