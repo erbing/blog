@@ -45,7 +45,7 @@ class Welcome extends React.Component {
 }
 ```
 
-> 上面的二种写法，目前开看是`等价的`.
+> 上面的二种写法，目前来看是`等价的`.
 
 > 任何都 React 版本，关于 Lifecycle 我们都可以找到对应的几个状态，来进行不同的 api 的差异的对比。这样也是方便，我们进行记忆的。
 
@@ -208,3 +208,12 @@ class Welcome extends React.Component {
 #### 4-1 props（父组件传递进来的数据）
 
 #### 4-2 state（本地组件的数据）
+
+## 六、React 各个版本之间的纵向对比
+
+| React 版本 \ 各个阶段 API |                                                                                                                                 Mounting（绑定） |                                                                                                                   Updating（数据更新）                                                                                                                   | Unmounting （解除绑定） | Error Handling （错误处理）                              |
+| :------------------------ | -----------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ----------------------- | -------------------------------------------------------- |
+| V 16.0.0                  |                                                                      constructor()<br> componentWillMount()<br> render() <br>componentDidMount() |                                                                 componentWillReceiveProps()<br> shouldComponentUpdate() <br>componentWillUpdate()<br> render()<br> componentDidUpdate()                                                                  | componentWillUnmount()  | componentDidCatch()                                      |
+| V 16.3.2                  | constructor()<br> static&nbspgetDerivedStateFromProps()<br>componentWillMount() / UNSAFE_componentWillMount()<br>render()<br>componentDidMount() | componentWillReceiveProps() / UNSAFE_componentWillReceiveProps()<br>static getDerivedStateFromProps()<br>shouldComponentUpdate()<br>componentWillUpdate() /UNSAFE_componentWillUpdate()<br>render()<br>getSnapshotBeforeUpdate()<br>componentDidUpdate() | componentWillUnmount()  | componentDidCatch()                                      |
+| V 16.5.2                  |                                                            constructor()<br>static getDerivedStateFromProps()<br>render()<br>componentDidMount() |                                                              static getDerivedStateFromProps()<br>shouldComponentUpdate()<br>render()<br>getSnapshotBeforeUpdate()<br>componentDidUpdate()                                                               | componentWillUnmount()  | componentDidCatch()                                      |
+| V 16.7.0(最新)            |                                                            constructor()<br>static getDerivedStateFromProps()<br>render()<br>componentDidMount() |                                                              static getDerivedStateFromProps()<br>shouldComponentUpdate()<br>render()<br>getSnapshotBeforeUpdate()<br>componentDidUpdate()                                                               | componentWillUnmount()  | static getDerivedStateFromError()<br>componentDidCatch() |
