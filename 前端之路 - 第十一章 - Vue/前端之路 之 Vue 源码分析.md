@@ -119,4 +119,4 @@ Vue.prototype._init = function (options?: Object) {
 
 > GitHub 地址：（欢迎 star 、欢迎推荐 : )
 >
-> [前端开发规范 从制定到实施](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20-%20%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20-%20Vue/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20%E4%B9%8B%20Vue%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.md)
+> [Vue 源码分析](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20-%20%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20-%20Vue/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20%E4%B9%8B%20Vue%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.md)
