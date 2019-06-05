@@ -116,3 +116,7 @@ Vue.prototype._init = function (options?: Object) {
 再开始之前，我们先看一张 结构图。当然这张和 囧克斯 的那张区别还是有点不一样。
 
 ![](http://images2015.cnblogs.com/blog/675289/201703/675289-20170326234803830-659549447.jpg)
+
+> GitHub 地址：（欢迎 star 、欢迎推荐 : )
+>
+> [前端开发规范 从制定到实施](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20-%20%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20-%20Vue/%E5%89%8D%E7%AB%AF%E4%B9%8B%E8%B7%AF%20%E4%B9%8B%20Vue%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.md)
