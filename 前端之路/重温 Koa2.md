@@ -119,8 +119,99 @@ app.use(async ctx => {
 
 #### 3.1、 GET 请求数据获取
 
+> GET 请求数据获取的方法有2中，如下
+
+```javascript
+app.use(async ctx => {
+    let url = ctx.request.url;
+    let html = await route(url);
+
+    // 从上下文对 request 对象中获取
+    let request = ctx.request;
+    let req_query = request.query;
+    let req_queryString = request.querystring;
+
+    // 从 上下文中直接获取
+    let ctx_query = ctx.query;
+    let ctx_queryString = ctx.querystring;
+
+    ctx.body = {
+        ctx,
+        request,
+        url,
+        req_query,
+        req_queryString,
+        ctx_query,
+        ctx_queryString,
+        html
+    };
+});
+```
+
+> 返回结果 
+
+```json
+url: "/index?page=1"
+req_query: {page: "1"}
+req_queryString: "page=1"
+ctx_query: {page: "1"}
+ctx_queryString: "page=1"
+```
+
+> 疑惑🤔的 点： 从上线文中获取的request对象和直接通过上线文获取的参数 有什么区别？ 为什么要这么设计？
+
+- 从 Koa2 的框架设计层面 app.js 中封装了  ctx、request、response
+- 从 Koa2 的框架设计层面 ctx.js 中封装了 request、response 方法
+- 从上下文中获取和从 ctx.request 获取的参数是一样的，因为底层方法是一致的
+- 直接从上下文中获取的方式简单、快捷
+- 从上下文中的 request 对象中获取的话，会更加的明确该属性来源，不容易混淆。
+
+> 注意：ctx.request是context经过封装的请求对象，ctx.req是context提供的node.js原生HTTP请求对象, 和这里的 ctx.query 和 ctx.request.query 是没有关系的。
+
 #### 3.2、 POST 请求数据获取
+
+> POST 请求的话，需要我们在页面mock一个表单，这样的话，可以更好的查看我们请求的数据。
+
+```html
+        <h1>koa2 request post demo</h1>
+        <form method="POST" action="/">
+            <p>userName</p>
+            <input name="userName" /><br />
+            <p>nickName</p>
+            <input name="nickName" /><br />
+            <p>email</p>
+            <input name="email" /><br />
+            <button type="submit">submit</button>
+        </form>
+```
+
+```javascript
+    if (ctx.method === 'GET') {
+        ctx.body = html;
+    } else if (ctx.url === '/' && ctx.method === 'POST') {
+        ctx.body = html + `<script> alert('提交成功！') </script>`;
+    } else {
+        ctx.body = '<h1>404！！！ o(╯□╰)o</h1>';
+    }
+```
+
 
 #### 3.3、 koa-bodyparser中间件
 
+> 实际上是封装了一层 post 的数据处理方法，然后将其赋值给了 ctx.request 的 body 属性
+
+```javascript
+const bodyParser = require('koa-bodyparser')
+
+// 使用ctx.body解析中间件
+app.use(bodyParser())
+
+// 处理 method 为 POST 的方法
+let postData = ctx.request.body
+ctx.body = postData
+
+```
+
+
+### 四、 静态资源加载
 
