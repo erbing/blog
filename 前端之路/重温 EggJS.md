@@ -1,4 +1,4 @@
-## 《前端之路》--- 初识 Egg.js
+## 《前端之路》--- 重温 Egg.js
 
 [TOC]
 > 在 nodejs 发展日益健壮和稳定的情况下，我们在日常的开发中使用 node 已经是一件非常常规的事情了，那么对于我们必要的掌握一个服务端框架还是非常有必要的。下面我们就开始吧。
@@ -333,25 +333,71 @@ module.exports = {
 
 #### 1.6、路由
 
-> 
+> Router 主要用来描述请求 URL 和具体承担执行动作的 Controller 的对应关系， 框架约定了 app/router.js 文件用于统一所有路由规则
 
+```javascript
+// demo
+module.exports = app => {
+    const { router, controller } = app;
+    router.get('/', controller.home.index);
+    router.get('/news', controller.news.list);
+    router.get('/user/:id', controller.test.user);
+};
+```
 
-#### 1.7、控制器
+>  router 提供的访问方法
+- router.head - HEAD
+- router.options - OPTIONS
+- router.get - GET
+- router.put - PUT
+- router.post - POST
+- router.patch - PATCH
+- router.delete - DELETE
+- router.redirect   --- 这里重点提示下 redirect 重定向，可以对 URL 进行重定向处理，比如我们最经常使用的可以把用户访问的根目录路由到某个主页。
+ 
+> router 有哪些使用方式？
+主要列举2中方式：
+- 最简单的一种，直接 router.method('/url', controller)
 
-#### 1.8、服务
+```javascript
+router.verb('path-match', app.controller.action);
+```
 
-#### 1.9、插件、定时任务、框架扩展、启动自定义
+- 最复杂的一种方式
 
+```javascript
+router.verb('router-name', 'path-match', middleware1, ..., middlewareN, app.controller.action);
 
+// router-name 是指路径别名
+// middleware 是指 中间件
+// path-match 是指 路由 url
+```
 
-### 二、核心功能
+> 如何使用 RESTful 风格的 URL 定义
 
+```javascript
+// 定义
+// router.js
+router.resources('posts', '/api/posts', controller.posts);
+```
 
+```javascript
+// controller/posts.js
+exports.index = async ctx => {
+    ctx.body = {
+        success: true,
+        data: [1, 2, 34]
+    };
+};
+```
 
-### 三、依赖第三方的教程
+> 访问 http://127.0.0.1:7001/api/posts 即可
 
+> 这里需要仔细一点，查看关于 restful 的 使用方法，需要对 restful 有一个基本对理解。
 
-### 四、进阶
+### 二、总结
 
+> 其实整篇文章，写到这里已经初步对于 egg 已经有了一个大概的了解了，那么后续我猜应该还会有对应的实际的写项目的文章吧（希望有时间和经历来写）
 
-### 五、总结
+> GitHub 地址：（欢迎 star 、欢迎推荐    : ) 
+>  [《前端之路》 - 重温 EggJS](https://github.com/erbing/blog/blob/master/%E5%89%8D%E7%AB%AF%08%E4%B9%8B%E8%B7%AF/%E9%87%8D%E6%B8%A9%20EggJS.md)
