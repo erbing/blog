@@ -1,4 +1,4 @@
-## 《前端之路》 - 初试 TypeScript + Vue
+## 《前端之路》 - 初试 TypeScript（一）基础数据类型
 
 ### 一、先讲讲 TypeScript
 
@@ -182,7 +182,196 @@ var HttpStutas;
   HttpStutas[(HttpStutas["noRequestName"] = 10011)] = "noRequestName";
 })(HttpStutas || (HttpStutas = {}));
 var res = HttpStutas.success;
-console.log(res);
+console.log(res); // 200
+console.log(HttpStutas);
+/**
+ * { '200': 'success',
+  '404': 'error',
+  '10010': 'noRequestId',
+  '10011': 'noRequestName',
+  success: 200,
+  error: 404,
+  noRequestId: 10010,
+  noRequestName: 10011 }
+ * 
+*/
 
 // 这里对于我们需要的一个理解是，在 JavaScript 赋值运算符，就是这里的等号，返回的解决是被赋的这个值。
+
+// 这里其实我们就简单的定义了一些 http 请求返回的状态码，我们实时根据状态码来转译成我们可以轻松看懂的字符串，这里也算是一个前端的同学在日常开发中常常会遇到的问题
 ```
+
+##### 2.1.7 Any （任意类型）
+
+> `TypeScript` 语法
+
+```typescript
+let a: any = "123";
+a = 123;
+a = true;
+a = {
+  x: "123"
+};
+
+let arr: any[] = [1, "123", {}, true, [123]];
+```
+
+> 被编译成 `ES5` 的 `JavaScript`
+
+```javascript
+"use strict";
+var a = "123";
+a = 123;
+a = true;
+a = {
+  x: "123"
+};
+var arr = [1, "123", {}, true, [123]];
+```
+
+##### 2.1.8 Viod （Viod 类型）
+
+    这里也需要简单介绍了，一般我们的函数一般其实会分为2种，一种是执行以后有数据返回的，一种是没有任何数据返回的，那么在介绍 Viod 之前我们就需要介绍下，函数确认返回数据类型的时候，我们需要怎么去写。
+
+> `TypeScript` 语法
+
+```typescript
+let fun1 = function(): string {
+  return "123";
+};
+
+let fun2 = function(): number {
+  return 123;
+};
+
+let fun3 = function(): Array<number> {
+  return [1, 213, 213];
+};
+
+let fun4 = function(): Array<string> {
+  return ["13", "axa"];
+};
+
+let fun5 = function(): Array<any> {
+  return ["13", 213, {}];
+};
+
+let fun6 = function(): any {
+  return { a: 123 };
+};
+
+let fun7 = function(): void {
+  console.log(fun1);
+};
+
+// 注意这里的 fun7 其实就是没有 return 任何数据，这个时候我们就给这个function 定义成一个 viod 类型。
+```
+
+> 被编译成 `ES5` 的 `JavaScript`
+
+```javascript
+"use strict";
+var fun1 = function() {
+  return "123";
+};
+var fun2 = function() {
+  return 123;
+};
+var fun3 = function() {
+  return [1, 213, 213];
+};
+var fun4 = function() {
+  return ["13", "axa"];
+};
+var fun5 = function() {
+  return ["13", 213, {}];
+};
+var fun6 = function() {
+  return { a: 123 };
+};
+var fun7 = function() {
+  console.log(fun1);
+};
+```
+
+##### 2.1.9 null & undefined （null 和 undefied 类型）
+
+> `TypeScript` 语法
+
+```typescript
+let n: null = null;
+let u: undefined = undefined;
+
+console.log(n === null); // true
+```
+
+> 被编译成 `ES5` 的 `JavaScript`
+
+```javascript
+"use strict";
+var n = null;
+var u = undefined;
+console.log(n === null); // true
+```
+
+##### 2.1.10 never（never 类型）
+
+> `TypeScript` 语法
+
+```typescript
+let ass: never;
+
+// ass = 123; // ts 会报错
+
+// never 是 null 和 undefined 的子集，表示从来不会出现的类型
+
+ass = (() => {
+  // ts 正确写法
+  throw Error("错误");
+})();
+
+// 但是往往，我们用never类型比较少，一般会用 number 类型或者 string 类型替代
+```
+
+> 被编译成 `ES5` 的 `JavaScript`
+
+```javascript
+"use strict";
+var ass;
+// ass = 123; // ts 会报错
+// never 是 null 和 undefined 的子集，表示从来不会出现的类型
+ass = (function() {
+  // ts 正确写法
+  throw Error("错误");
+})();
+// 但是往往，我们用never类型比较少，一般会用 number 类型或者 string 类型替代
+```
+
+##### 2.1.11 object （object 类型）
+
+    其实这里简单解释一下，什么是 object 类型，object 是非原始类型，且是 非 number, string, boolean, symbol, null, or undefined. 以外的一种类型
+
+> `TypeScript` 语法
+
+```typescript
+let o: object;
+let names: string = "zhang";
+o = {
+  names
+};
+```
+
+> 被编译成 `ES5` 的 `JavaScript`
+
+```javascript
+"use strict";
+var o;
+var names = "zhang";
+o = {
+  names: names
+};
+```
+
+### 三、总结
+
+> 这篇文章，总结来说是先介绍了下 typeScript 的基础数据类型，以及 typeScript 的 what、why、how 的一个基本介绍，介绍 什么是 typeScript，为什么要用 typeScript 以及 如何使用 typeScript 。那么我们初次接触到的话，主要是需要注意 语法上的差异，因为往往，我们在给各种数据类型定义类型的时候往往会出现一些语法错误，这里大家在书写的时候注意一下，如果出错可以痛殴 vscode 查看对应的错误提示。
