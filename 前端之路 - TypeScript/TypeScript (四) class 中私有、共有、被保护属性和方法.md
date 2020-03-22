@@ -1,4 +1,4 @@
-##《前端之路》- TypeScript (三) class 中各类属性、方法，抽象类、多态
+##《前端之路》- TypeScript (四) class 中各类属性、方法，抽象类、多态
 
 [TOC]
 
