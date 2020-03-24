@@ -131,10 +131,128 @@ var Animals = /** @class */ (function() {
 
 #### 3-2、属性的 private
 
+> 当成员被标记成 private 时，它就不能在声明它的类的外部访问
+
+```typescript
+class Animal2 {
+  private name: string | undefined;
+  constructor(name: string) {
+    this.name = name;
+  }
+  eat() {
+    console.log(`${this.name}哇`);
+  }
+}
+
+var a = new Animal2("private");
+a.name = "123"; // 报错，name 属性只能在 Animal2 内部使用
+new Animal2("private").name = "432"; // 报错： 属性“name”为私有属性，只能在类“Animal2”中访问。
+```
+
 #### 3-3、属性的 protected
 
-#### 3-4、方法的 public
+> 当成员被标记成 protected 时，它就不能在声明它的类的外部访问，但是该类的子类可以访问
 
-#### 3-5、方法的 private
+```typescript
+class Person2 {
+  protected name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
 
-#### 3-6、方法的 protected
+class exPerson extends Person2 {
+  public age: number;
+  constructor(age: number, name: string) {
+    super(name);
+    this.age = age;
+    this.name = name;
+  }
+  public getInfo() {
+    console.log(`${this.name}哈哈哈哈${this.age}`);
+  }
+}
+
+let ps = new exPerson(123, "za"); // 派生类可以继承 protected 属性，但是
+
+ps.name = "zz"; // 报错 外部无法直接访问
+console.log(ps); // { name: 'za', age: 123 }
+```
+
+> 构造函数也能够被 设置成 protected 属性
+
+```typescript
+class Person22 {
+  protected name: string;
+  protected constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class exPerson2 extends Person2 {
+  public age: number;
+  constructor(age: number, name: string) {
+    super(name);
+    this.age = age;
+    this.name = name;
+  }
+  public getInfo() {
+    console.log(`${this.name}哈哈哈哈${this.age}`);
+  }
+}
+
+let exp = new exPerson2(21, "exp-name");
+let per22 = new Person22("zs"); // 报错 类“Person22”的构造函数是受保护的，仅可在类声明中访问
+```
+
+#### 3-4、readonly 修饰符
+
+> 使用 readonly 关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化
+
+```typescript
+class octPers {
+  readonly name: string;
+  readonly age: number = 8;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+let ns = new octPers("zz", 123);
+console.log("---1", ns);
+ns.age = 456; // 报错 Cannot assign to 'age' because it is a read-only property.
+console.log("---2", ns); // 这里会执行什么内容呢？
+```
+
+###四、TypeScript 中 静态方法
+
+> 这里所谓的静态方法，其实就是将方法直接定义在了 构造函数对象上，只有构造函数本身才能去使用它，任何其他都无法使用（包括它的 派生类）
+
+```typescript
+class staticPerson {
+  public name: string;
+  public age: number = 8;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  static getName1() {
+    console.log("---static-getName---", this);
+  }
+  protected getName(): void {
+    console.log("---protected-getName---", this);
+  }
+}
+
+let ress = new staticPerson("zzs", 123);
+console.log("---instancing getName", staticPerson.getName1()); // 属性“getName”受保护，只能在类“staticPerson”及其子类中访问。
+```
+
+###五、TypeScript 中 继承与多态
+
+> 这里面其实更多的是 JS 的继承与多态，我们以 ES5 和 ES6 分别对继承和多态进行对比
+
+#### 5-1 ES5 中是如何实现 继承的？
+
+> 这里我们想继承
