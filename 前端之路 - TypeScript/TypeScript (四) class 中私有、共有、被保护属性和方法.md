@@ -259,12 +259,137 @@ console.log("---instancing getName", staticPerson.getName1()); // 属性“getNa
 
 ##### 5-1-1 通过类式继承
 
+> 类的方式，其核心在于将 子类的 prototype 指向了 父类的实例，这样的话，子类的实例的 `__proto__` 指向子类的 `prototype`, 然而 子类的 `prototype` 被赋予了 父类的实例。我们制作一个简单的图，来说明一下这里如何实现的继承。
+
+![](https://img2020.cnblogs.com/blog/675289/202003/675289-20200326231020779-112372204.jpg)
+
 ```javascript
+var SuperClass = function(name) {
+  var id = 1;
+  this.name = name;
+  this.work = function() {
+    console.log(this.name + "in SuperClass");
+  };
+};
+SuperClass.prototype.getSuperName = function() {
+  return this.name;
+};
+
+var SubClass = function() {
+  this.getSubName = function() {
+    console.log("this is subname");
+  };
+};
+
+SubClass.prototype = new SuperClass("superClass");
+var sub = new SubClass();
+
+// 这样有缺点么？ 当然有，下面我们来通过例子来说明一下
 ```
+
+> 这种继承的方式的缺点、
+
+```javascript
+var SuperClass = function(name) {
+  var id = 1;
+  this.name = name;
+  this.todo = [1, 2, 3, 4];
+  this.work = function() {
+    console.log(this.name + "in SuperClass");
+  };
+};
+SuperClass.prototype.getSuperName = function() {
+  return this.name;
+};
+
+var SubClass = function() {
+  this.getSubName = function() {
+    console.log("this is subname");
+  };
+};
+
+SubClass.prototype = new SuperClass("superClass");
+var sub = new SubClass();
+sub.todo.push("subClass name");
+var sub2 = new SubClass();
+console.log(sub2.todo); // [ 1, 2, 3, 4, 'subClass name']
+// 这里是缺陷一，父类属性会被实例子类修改、污染
+
+console.log(sub.name); //superClass
+console.log(sub2.name); //superClass
+
+// 子类的实例只能有一个name，这很显然也是不够灵活的，这里就是缺陷二
+```
+
+> 这里因为子类实例对象 1，对于父类共有属性进行了修改，导致子类实例对象 2 的对应属性受到了污染。那有没有什么办法可以避免这种污染呢？当然是有的，后面我们会介绍到的。
 
 ##### 5-1-2 通过构造函数继承
 
+```javascript
+// 声明父类
+function Animal(color) {
+  this.name = "animal";
+  this.type = ["pig", "cat"];
+  this.color = color;
+}
+
+// 添加原型方法
+Animal.prototype.eat = function(food) {
+  console.log(food);
+};
+
+// 声明子类
+function Dog() {
+  Animal.apply(this, arguments);
+  // 这一步的操作就是改变 Animal 方法的上下文，然后让 Dog 也具备了 父类构造函数内的属性和方法
+}
+
+var dog1 = new Dog("blue"); // dog1.color -> blue
+var dog2 = new Dog("red"); // dog2.color -> red
+
+dog1.type.push("haha");
+console.log(dog2.type); // [ 'pig', 'cat' ]
+```
+
+> 我没看到 dog1 修改了继承自父类的属性 type ，但是 dog2 的 type 属性并为被影响到。原因就是我们实例化的时候，创建的实例对象的指针指向的位置是不同的，所以对应的 `__proto__` 指向的是 不同的子类构造函数的 `prototype`。可能会比较绕口，但是本质就是 new 操作生成了 2 个不同的对象，各自有各自的原型属性，互不干扰。
+
+`但是上面也有一个缺陷就是，子类没办法继承到父类原型上的方法和属性`
+
+> 那聪明的前端开发者们，就想到了 集合前 2 者的优势，进行了 组合式继承。
+
 ##### 5-1-3 组合式继承
+
+```javascript
+// 声明父类
+function Animal(color) {
+	this.name = 'animal';
+	this.type = ['pig', 'cat'];
+	this.color = color;
+}
+
+// 添加原型方法
+Animal.prototype.eat = function(food) {
+	console.log(food);
+};
+
+// 声明子类
+function Dog() {
+	Animal.apply(this, arguments);
+	// 这一步的操作就是改变 Animal 方法的上下文，然后让 Dog 也具备了
+	// 父类构造函数内的属性和方法
+}
+Dog.prototype = new Animal('Animal Color');
+
+var dog1 = new Dog();
+console.log((dog1.color = 'dog1.name'));
+var dog2 = new Dog();
+
+console.log(dog2.color); // undefined
+
+这里为什么 dog2.color 是 undefined 而不是 'dog1.name' 呢？
+因为，我们子类的构造函数，已经继承了 父类的构造函数内部的属性和方法，然后，在实例我们 子类的时候，子类的实例对象就会有先从本身的对象中去寻找 color 属性。
+当找到对应属性的时候，无论是否有值，都会优先返回 实例化对象本身的属性，而不再需要从原型链中查找对应属性。
+```
 
 #### 5-2 ES6 中是如何实现 继承的？
 
@@ -272,6 +397,39 @@ console.log("---instancing getName", staticPerson.getName1()); // 属性“getNa
 
 ##### 5-2-1 ES6 的继承方式
 
-##### 5-2-2 ES6 和 ES5 的区别
+```javascript
+class Animal {
+	constructor(name) {
+		this.name = name;
+	}
+	eat(food) {
+		console.log(`${this.name}吃${food}`);
+	}
+}
 
-##### 5-2-3 ES6 继承的不足
+class Dog extends Animal {
+	constructor(name) {
+		super(name);
+		this.name = name;
+	}
+	run() {
+		console.log('小狗泡泡跑');
+	}
+}
+
+let dog1 = new Dog('小狗');
+let dog2 = new Dog('小花');
+console.log(dog1.name); // 小狗
+console.log(dog2.name); // 小花
+
+dog1.__proto__ === Dog.prototype	// true
+Dog.__proto__ === Animal			// true
+
+这里 Dog 的 __proto__ 指向的是 Animal 这个类
+
+因为 Animal 这个类中的 constructor 就是原来的构造函数， 其中剩下的方法、属性都是 prototype 上的公共方法与属性。是可以被子类继承
+```
+
+### 六、总结
+
+> 这里全篇文章又总结了下 JS 中继承的原理以及一些我们平时可能忽略的问题，这里就相当于在 学习 ts 之前，带着大家再一起复习一下。好了，本篇文章就先到这里了。
